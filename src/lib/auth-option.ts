@@ -19,7 +19,7 @@ const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const response = await clientApiInstance.post("/user/login", {
+          const response = await clientApiInstance.post("/login", {
             email: credentials?.email,
             password: credentials?.password,
           });
