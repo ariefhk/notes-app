@@ -1,7 +1,5 @@
 import DarkModeToggle from "@/components/common/dark-mode-toggle";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import RegisterForm from "@/components/register/register-form";
 import Link from "next/link";
 
 const RegisterPage = () => {
@@ -11,27 +9,13 @@ const RegisterPage = () => {
         <DarkModeToggle className="absolute right-8 top-8" />
       </div>
       <div className="container pt-20 space-y-6">
-        <h1 className="text-2xl font-bold">Login</h1>
-        <form className="space-y-5">
-          <div className="grid gap-2">
-            <Label>Nama</Label>
-            <Input />
-          </div>
-          <div className="grid gap-2">
-            <Label>Email</Label>
-            <Input />
-          </div>
-          <div className="grid gap-2">
-            <Label>Password</Label>
-            <Input />
-          </div>
-          <Button className="w-full ">Masuk</Button>
-        </form>
+        <h1 className="text-2xl font-bold">Buat Akun</h1>
+        <RegisterForm />
       </div>
 
       <div className=" container max-w-[500px] flex justify-center  fixed bottom-16 ">
         <span>Sudah punya Akun?</span>
-        <Link href={"/register"} className="pl-2 font-bold">
+        <Link href={"/login"} className="pl-2 font-bold">
           Masuk di sini
         </Link>
       </div>

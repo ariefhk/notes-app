@@ -24,6 +24,8 @@ const authOptions: NextAuthOptions = {
             password: credentials?.password,
           });
 
+          console.log(" RESPONSE: ", response.data.data);
+
           const userData = {
             id: String(+new Date()), // protect user id
             name: response?.data.data?.name,
@@ -34,8 +36,8 @@ const authOptions: NextAuthOptions = {
           return userData;
         } catch (error) {
           if (error instanceof AxiosError) {
-            console.log("AXIOS ERR IN AUTH OPTIONS: ", error);
-            throw error;
+            // console.log("AXIOS ERR IN AUTH OPTIONS: ", error.response?.data?.message);
+            throw new Error(error?.response?.data?.message);
           }
           throw error;
         }

@@ -24,13 +24,13 @@ export const login = async (request: LoginUserRequest): Promise<LoginUserRespons
   });
 
   if (!existedUser) {
-    throw new APIError(404, "User Not Found!");
+    throw new APIError(404, "Akun tidak ditemukan!");
   }
 
   const checkPassword = await bcrypt.compare(password, existedUser.password);
 
   if (!checkPassword) {
-    throw new APIError(404, "Incorrect email or password");
+    throw new APIError(404, "Kesalahan email atau password");
   }
 
   // creating jwt token
@@ -75,7 +75,7 @@ export const register = async (request: RegisterUserRequest): Promise<RegisterUs
   });
 
   if (existedUser) {
-    throw new APIError(404, "User already exist!");
+    throw new APIError(404, "User sudah ada!");
   }
 
   // encypt password

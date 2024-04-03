@@ -1,12 +1,12 @@
-import { z, ZodType } from "zod";
+import { z } from "zod";
 
-export const LOGIN: ZodType = z.object({
-  email: z.string().email(),
-  password: z.string().min(1),
+export const LOGIN = z.object({
+  email: z.string().email({ message: "Format Email harus benar!" }),
+  password: z.string().min(5, { message: "Minimum password 5 Karakter!" }),
 });
 
-export const REGISTER: ZodType = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  password: z.string().min(1),
+export const REGISTER = z.object({
+  name: z.string().min(1, { message: "Nama tidak bole kosong!" }),
+  email: z.string().email({ message: "Format Email harus benar!" }),
+  password: z.string().min(5, { message: "Minimum password 5 Karakter!" }),
 });

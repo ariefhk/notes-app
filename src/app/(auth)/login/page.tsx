@@ -1,4 +1,5 @@
 import DarkModeToggle from "@/components/common/dark-mode-toggle";
+import LoginForm from "@/components/login/login-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,17 +13,7 @@ const LoginPage = () => {
       </div>
       <div className="container pt-20 space-y-6">
         <h1 className="text-2xl font-bold">Login</h1>
-        <form className="space-y-5">
-          <div className="grid gap-2">
-            <Label>Email</Label>
-            <Input />
-          </div>
-          <div className="grid gap-2">
-            <Label>Password</Label>
-            <Input />
-          </div>
-          <Button className="w-full ">Masuk</Button>
-        </form>
+        <LoginForm />
       </div>
 
       <div className=" container max-w-[500px] flex justify-center  fixed bottom-16 ">
