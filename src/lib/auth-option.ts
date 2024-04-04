@@ -24,19 +24,16 @@ const authOptions: NextAuthOptions = {
             password: credentials?.password,
           });
 
-          console.log(" RESPONSE: ", response.data.data);
-
           const userData = {
             id: String(+new Date()), // protect user id
-            name: response?.data.data?.name,
-            email: response?.data.data?.email,
-            token: response?.data.data?.token,
+            name: response?.data?.data?.name,
+            email: response?.data?.data?.email,
+            token: response?.data?.data?.token,
           };
 
           return userData;
         } catch (error) {
           if (error instanceof AxiosError) {
-            // console.log("AXIOS ERR IN AUTH OPTIONS: ", error.response?.data?.message);
             throw new Error(error?.response?.data?.message);
           }
           throw error;
@@ -49,21 +46,6 @@ const authOptions: NextAuthOptions = {
     maxAge: 60 * 60 * 24 * 30, // 30 days
   },
   callbacks: {
-    // jwt: async ({ token, user, account }) => {
-    //   if (account && account.access_token) {
-    //     // set access_token to the token payload
-    //     token.accessToken = account.access_token;
-    //   }
-    //   return token;
-    // },
-    // redirect: async ({ url, baseUrl }) => {
-    //   return baseUrl;
-    // },
-    // session: async ({ session, token, user }) => {
-    //   // If we want to make the accessToken available in components, then we have to explicitly forward it here.
-    //   return { ...session, token: token.accessToken };
-    // },
-
     async jwt({ token, user }) {
       return { ...token, ...user };
     },
@@ -73,9 +55,6 @@ const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  // pages: {
-  //   signIn: "/login",
-  // },
 
   secret: process.env.NEXTAUTH_SECRET,
 };

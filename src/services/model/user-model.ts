@@ -19,3 +19,5 @@ export type RegisterUserResponse = {
   name: string;
   email: string;
 };
+
+export type GetUserRequest = string | undefined;

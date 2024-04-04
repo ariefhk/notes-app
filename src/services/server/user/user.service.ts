@@ -1,7 +1,13 @@
-import { LoginUserRequest, LoginUserResponse, RegisterUserRequest, RegisterUserResponse } from "@/services/model/user-model";
-import { LOGIN, REGISTER } from "@/services/validation/user-validation";
+import {
+  GetUserRequest,
+  LoginUserRequest,
+  LoginUserResponse,
+  RegisterUserRequest,
+  RegisterUserResponse,
+} from "@/services/model/user-model";
+import { IJWTPayload, LOGIN, REGISTER } from "@/services/validation/user-validation";
 import { APIError } from "@/services/error/api-error";
-import { makeJwt } from "@/services/util/jwt";
+import { decodeJwt, makeJwt } from "@/services/util/jwt";
 import bcrypt from "bcrypt";
 import prisma from "@/db/connection";
 
@@ -93,4 +99,29 @@ export const register = async (request: RegisterUserRequest): Promise<RegisterUs
       email: true,
     },
   });
+};
+
+export const getUser = async (session: GetUserRequest) => {
+  if (!session) {
+    throw new APIError(401, "Sesi tidak ditemukan!");
+  }
+
+  const data = (await decodeJwt(session)) as IJWTPayload;
+
+  const existedUser = await prisma.user.findUnique({
+    where: {
+      email: data.email,
+    },
+
+    select: {
+      name: true,
+      email: true,
+    },
+  });
+
+  if (!existedUser) {
+    throw new APIError(401, "User tidak ditemukan!");
+  }
+
+  return existedUser;
 };

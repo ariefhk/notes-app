@@ -22,20 +22,20 @@ model User {
   token     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Todo      Todo[]
+  Todo      Note[]
 
   @@map("users")
 }
 
-model Todo {
+model Note {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
-  todo      String
+  note      String
   isArchive Boolean  @default(false)
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("todos")
+  @@map("notes")
 }
