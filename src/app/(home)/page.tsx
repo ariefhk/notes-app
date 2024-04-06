@@ -1,6 +1,6 @@
 import SearhQuery from "@/components/common/search-query";
 import NoteList from "@/components/home/note-list";
-import AddNoteButton from "@/components/common/add-note";
+import AddNoteButton from "@/components/common/add-button";
 
 export default function Home() {
   return (

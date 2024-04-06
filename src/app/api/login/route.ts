@@ -1,6 +1,6 @@
 import { Response, ResponseError } from "@/lib/api.response";
-import { login } from "@/services/server/user/user.service";
-import { NextRequest, NextResponse } from "next/server";
+import { login } from "@/services/service/user.service";
+import { NextRequest } from "next/server";
 import { apiMiddleware } from "@/lib/api.middleware";
 import { APIError } from "@/services/error/api-error";
 

@@ -2,20 +2,31 @@ import { Note } from "@prisma/client";
 
 export type CreateNoteRequest = {
   title: string;
-  todo: string;
+  note: string;
+  isArchive: boolean;
+  email: string;
+};
+
+export type SearchNotesRequest = {
+  title?: string;
+  email: string;
+};
+
+export type SearchArchivedNotesRequest = {
+  title?: string;
   isArchive: boolean;
   email: string;
 };
 
 export type SearchNoteRequest = {
-  title: string;
-  password: string;
+  id: number;
+  email: string;
 };
 
 export type UpdateNoteRequest = {
   id: number;
   title: string;
-  todo: string;
+  note: string;
   isArchive: boolean;
   email: string;
 };
@@ -31,6 +42,9 @@ export const toNoteResponse = (note: Note, email: string) => {
     title: note.title,
     note: note.note,
     isArchive: note.isArchive,
+    createdAt: note.createdAt,
     email,
   };
 };
+
+export type NoteResponse = ReturnType<typeof toNoteResponse>;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ActiveNotes from "./active-notes";
 import CompletedNotes from "./completed-notes";
 import { useState } from "react";

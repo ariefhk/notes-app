@@ -10,6 +10,7 @@ import { APIError } from "@/services/error/api-error";
 import { decodeJwt, makeJwt } from "@/services/util/jwt";
 import bcrypt from "bcrypt";
 import prisma from "@/db/connection";
+import { JWTExpired } from "jose/errors";
 
 export const login = async (request: LoginUserRequest): Promise<LoginUserResponse> => {
   const validation = LOGIN.safeParse(request);
@@ -102,26 +103,32 @@ export const register = async (request: RegisterUserRequest): Promise<RegisterUs
 };
 
 export const getUser = async (session: GetUserRequest) => {
-  if (!session) {
-    throw new APIError(401, "Sesi tidak ditemukan!");
+  try {
+    if (!session) {
+      throw new APIError(401, "Sesi tidak ditemukan!");
+    }
+
+    const data = (await decodeJwt(session)) as IJWTPayload;
+
+    const existedUser = await prisma.user.findUnique({
+      where: {
+        email: data.email,
+      },
+      select: {
+        name: true,
+        email: true,
+      },
+    });
+
+    if (!existedUser) {
+      throw new APIError(401, "User tidak ditemukan!");
+    }
+
+    return existedUser;
+  } catch (error) {
+    if (error instanceof JWTExpired) {
+      throw new APIError(401, "Sesi telah berakhir Anda wajib login Ulang!");
+    }
+    throw error;
   }
-
-  const data = (await decodeJwt(session)) as IJWTPayload;
-
-  const existedUser = await prisma.user.findUnique({
-    where: {
-      email: data.email,
-    },
-
-    select: {
-      name: true,
-      email: true,
-    },
-  });
-
-  if (!existedUser) {
-    throw new APIError(401, "User tidak ditemukan!");
-  }
-
-  return existedUser;
 };

@@ -1,10 +1,9 @@
-import { MutateOptions, UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { RegisterUserResponse, RegisterUserRequest } from "@/services/model/user-model";
 import { ApiError } from "next/dist/server/api-utils";
 import { clientApiInstance } from "../client-api-instance";
 
-export type ApiServiceErr = any;
-export type MutationOpt<Response, TVariables = unknown> = UseMutationOptions<Response, ApiServiceErr, TVariables, unknown>;
+import { useMutation } from "@tanstack/react-query";
+import { MutationOpt } from "@/types/react-query";
 
 export const registation = async (data: RegisterUserRequest) => {
   return typeof data === "undefined"
@@ -17,7 +16,6 @@ export const useRegistation = (opt?: MutationOpt<RegisterUserResponse>) => {
     mutationKey: ["register_user"],
     mutationFn: async (data: RegisterUserRequest) => {
       const response = await clientApiInstance.post("/register", data);
-      // console.log(response);
 
       return response.data.data;
     },

@@ -12,12 +12,11 @@ async function main() {
 
   // console.log(test);
 
-  const todoMockUp = await prisma.todo.create({
+  const todoMockUp = await prisma.note.create({
     data: {
       title: "test",
-      todo: "test my todo",
+      note: "test my todo",
       isArchive: false,
-      // userId: 1,
       userId: 1,
     },
   });

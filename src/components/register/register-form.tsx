@@ -8,13 +8,12 @@ import { REGISTER } from "@/services/validation/user-validation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { cn } from "@/lib/utils";
 import ErrorMessage from "../common/error-message";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useRegistation } from "@/services/client/react-query/use-todos-query";
-import { ApiError } from "next/dist/server/api-utils";
+import { useRegistation } from "@/services/client/react-query/user-query";
+import { cn } from "@/lib/utils";
 import { AxiosError } from "axios";
 
 type RegisterSchema = z.infer<typeof REGISTER>;

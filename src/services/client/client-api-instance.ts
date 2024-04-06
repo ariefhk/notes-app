@@ -1,6 +1,6 @@
 import { signOut } from "next-auth/react";
-import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
+import axios from "axios";
 
 const clientApiInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,

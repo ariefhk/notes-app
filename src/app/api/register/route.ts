@@ -1,5 +1,5 @@
 import { Response, ResponseError } from "@/lib/api.response";
-import { register } from "@/services/server/user/user.service";
+import { register } from "@/services/service/user.service";
 import { NextRequest } from "next/server";
 import { apiMiddleware } from "@/lib/api.middleware";
 import { APIError } from "@/services/error/api-error";

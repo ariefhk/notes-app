@@ -25,7 +25,7 @@ const Navbar = () => {
     <nav className="container  border-b">
       <div className="flex px-1 items-center justify-between py-3 ">
         <Link href={"/"} className="text-lg font-semibold ">
-          Aplikasi Catatan{" "}
+          Aplikasi Note{" "}
         </Link>
         <article className="flex items-center gap-3">
           <DropdownMenu>

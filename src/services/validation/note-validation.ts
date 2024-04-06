@@ -16,8 +16,19 @@ export class NoteValidation {
     email: z.string().min(1, { message: "Judul harus diisi!" }),
   });
 
+  static readonly SEARCHMANY = z.object({
+    title: z.string().optional(),
+    email: z.string().min(1, { message: "Judul harus diisi!" }),
+  });
+
+  static readonly SEARCHARCHIVEDMANY = z.object({
+    title: z.string().optional(),
+    isArchive: z.boolean(),
+    email: z.string().min(1, { message: "Judul harus diisi!" }),
+  });
+
   static readonly SEARCH = z.object({
-    title: z.string().min(1, { message: "Judul harus diisi!" }),
+    id: z.number({ required_error: "Id catatan Harus Ada!" }),
     email: z.string().min(1, { message: "Judul harus diisi!" }),
   });
 

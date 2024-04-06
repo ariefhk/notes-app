@@ -1,41 +1,30 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import useSearchQuery from "@/hooks/use-search-query-params";
+import { useGetNotes } from "@/services/client/react-query/note-query";
+import NotFoundNotes from "./not-found-notes";
+import NoteSkeleton from "./note-skeleton";
+import Note from "./note";
 
 const CompletedNotes = () => {
   const { query } = useSearchQuery("notes");
 
-  console.log("GET VALUE: Completed", query);
+  const {
+    data: archivedNotes,
+    isSuccess: isSuccessGetArchivedNotes,
+    isLoading: isLoadingGetArchivedNotes,
+  } = useGetNotes(query, true);
+
+  console.log("GET VALUE: Completed", archivedNotes);
 
   return (
     <div className="grid gap-2 pt-[-10px]">
-      {Array.from({ length: 5 }).map((_, index: number) => {
-        return (
-          <Card key={index}>
-            <CardHeader>
-              <CardTitle>Account</CardTitle>
-              <CardDescription>Make changes to your active-notes here. Click save when youre done.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" defaultValue="Pedro Duarte" />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" defaultValue="@peduarte" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save changes</Button>
-            </CardFooter>
-          </Card>
-        );
-      })}
+      {isLoadingGetArchivedNotes && <NoteSkeleton />}
+      {isSuccessGetArchivedNotes && archivedNotes.length === 0 && <NotFoundNotes />}
+      {isSuccessGetArchivedNotes &&
+        archivedNotes.map((note, index: number) => {
+          return <Note key={index + 1} {...note} isArchived />;
+        })}
     </div>
   );
 };
