@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tambah Note",
+};
+
 import AddNoteForm from "@/components/add-note/add-note-form";
 
 const AddNotePage = () => {

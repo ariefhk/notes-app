@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+};
+
 import DarkModeToggle from "@/components/common/dark-mode-toggle";
 import LoginForm from "@/components/login/login-form";
 import Link from "next/link";

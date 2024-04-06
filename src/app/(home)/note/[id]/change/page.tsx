@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Ubah Note",
+};
+
 import ChangeNoteForm from "@/components/change-note/change-note-form";
 
 type Props = {

@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Daftar",
+};
+
 import DarkModeToggle from "@/components/common/dark-mode-toggle";
 import RegisterForm from "@/components/register/register-form";
 import Link from "next/link";
