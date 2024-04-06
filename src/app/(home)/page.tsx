@@ -9,7 +9,9 @@ export default function Home() {
       <Suspense>
         <SearhQuery queryParams="notes" className="mt-3" />
       </Suspense>
-      <NoteList />
+      <Suspense>
+        <NoteList />
+      </Suspense>
       <AddNoteButton className="absolute bottom-8 right-0 rounded-full p-0 h-12 w-12" />
     </main>
   );

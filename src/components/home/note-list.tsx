@@ -1,5 +1,4 @@
 "use client";
-
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ActiveNotes from "./active-notes";
 import CompletedNotes from "./completed-notes";
