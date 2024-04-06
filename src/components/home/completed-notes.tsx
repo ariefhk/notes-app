@@ -15,7 +15,7 @@ const CompletedNotes = () => {
     isLoading: isLoadingGetArchivedNotes,
   } = useGetNotes(query, true);
 
-  console.log("GET VALUE: Completed", archivedNotes);
+  // console.log("GET VALUE: Completed", archivedNotes);
 
   return (
     <div className="grid gap-2 pt-[-10px]">

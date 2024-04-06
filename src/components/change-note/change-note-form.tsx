@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetNote } from "@/services/client/react-query/note-query";
 import { useCallback, useEffect } from "react";
+import { useUpdateNote } from "@/services/client/react-query/note-query";
 
 // omitting email because it will checked on server by session
 const UpdateNoteSchema = z.object({
@@ -58,6 +59,20 @@ const ChangeNoteForm = ({ id }: { id: number }) => {
 
   const { data: note, isLoading: isLoadingGetNote, isSuccess: isSuccessGetNote } = useGetNote(id);
 
+  const { mutateAsync: updateNote, isPending: isLoadingUpdateNote } = useUpdateNote({
+    onSuccess: (data) => {
+      reset();
+      toast({
+        title: "Berhasil Mengupdate Note!",
+        description: `Note ${note?.title} sudah diedit!`,
+      });
+      router.push("/");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["get_notes"] });
+    },
+  });
+
   // console.log(note);
 
   useEffect(() => {
@@ -76,6 +91,10 @@ const ChangeNoteForm = ({ id }: { id: number }) => {
     if (isLoadingGetNote) {
       return true;
     }
+    if (isLoadingUpdateNote) {
+      return true;
+    }
+
     if (isSubmitting) {
       return true;
     }
@@ -95,6 +114,7 @@ const ChangeNoteForm = ({ id }: { id: number }) => {
 
     return false;
   }, [
+    isLoadingUpdateNote,
     isLoadingGetNote,
     isSubmitting,
     isSuccessGetNote,
@@ -107,7 +127,22 @@ const ChangeNoteForm = ({ id }: { id: number }) => {
   ]);
 
   const onChangeNote = async (values: ChangeNoteSchema) => {
-    console.log(values);
+    try {
+      await updateNote({
+        id,
+        title: values.title,
+        note: values.note,
+        isArchive: values.isArchive === "true" ? true : false,
+      });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast({
+          variant: "destructive",
+          title: "Gagal update Note!",
+          description: error?.response?.data?.message,
+        });
+      }
+    }
   };
 
   return (
@@ -136,7 +171,9 @@ const ChangeNoteForm = ({ id }: { id: number }) => {
         <ErrorMessage errorMessage={errors.isArchive?.message} />
       </div>
       <Button disabled={getWatchData()} type="submit" className="w-full">
-        {(isSubmitting || isLoadingGetNote) && <AiOutlineLoading3Quarters className="mr-2 h-4 w-4 animate-spin" />}
+        {(isSubmitting || isLoadingGetNote || isLoadingUpdateNote) && (
+          <AiOutlineLoading3Quarters className="mr-2 h-4 w-4 animate-spin" />
+        )}
         {isLoadingGetNote ? "Sedang memuat data..." : "Ubah Note"}
       </Button>
     </form>

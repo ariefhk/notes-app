@@ -11,7 +11,7 @@ const ActiveNotes = () => {
 
   const { data: activeNotes, isSuccess: isSuccessGetNotes, isLoading: isLoadingGetNotes } = useGetNotes(query);
 
-  console.log("GET VALUE: Active", activeNotes);
+  // console.log("GET VALUE: Active", activeNotes);
 
   return (
     <div className="grid gap-2">
