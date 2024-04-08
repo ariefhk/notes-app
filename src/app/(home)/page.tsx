@@ -18,7 +18,7 @@ export default function Home() {
       <Suspense>
         <NoteList />
       </Suspense>
-      <AddNoteButton className="absolute bottom-8 right-0 rounded-full p-0 h-12 w-12" />
+      <AddNoteButton className="absolute bottom-12 right-0 rounded-full p-0 h-12 w-12" />
     </main>
   );
 }
