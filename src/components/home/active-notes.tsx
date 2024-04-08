@@ -9,15 +9,16 @@ import NoteSkeleton from "./note-skeleton";
 const ActiveNotes = () => {
   const { query } = useSearchQuery("notes");
 
-  const { data: activeNotes, isSuccess: isSuccessGetNotes, isLoading: isLoadingGetNotes } = useGetNotes(query);
+  const { data: activeNotes, isSuccess: isSuccessGetNotes, isFetching: isLoadingGetNotes } = useGetNotes(query);
 
   // console.log("GET VALUE: Active", activeNotes);
 
   return (
     <div className="grid gap-2">
       {isLoadingGetNotes && <NoteSkeleton />}
-      {isSuccessGetNotes && activeNotes.length === 0 && <NotFoundNotes />}
-      {isSuccessGetNotes &&
+      {!isLoadingGetNotes && isSuccessGetNotes && activeNotes.length === 0 && <NotFoundNotes />}
+      {!isLoadingGetNotes &&
+        isSuccessGetNotes &&
         activeNotes.map((note, index: number) => {
           return <Note key={index + 1} {...note} />;
         })}

@@ -12,7 +12,7 @@ const CompletedNotes = () => {
   const {
     data: archivedNotes,
     isSuccess: isSuccessGetArchivedNotes,
-    isLoading: isLoadingGetArchivedNotes,
+    isFetching: isLoadingGetArchivedNotes,
   } = useGetNotes(query, true);
 
   // console.log("GET VALUE: Completed", archivedNotes);
@@ -20,8 +20,9 @@ const CompletedNotes = () => {
   return (
     <div className="grid gap-2 pt-[-10px]">
       {isLoadingGetArchivedNotes && <NoteSkeleton />}
-      {isSuccessGetArchivedNotes && archivedNotes.length === 0 && <NotFoundNotes />}
-      {isSuccessGetArchivedNotes &&
+      {!isLoadingGetArchivedNotes && isSuccessGetArchivedNotes && archivedNotes.length === 0 && <NotFoundNotes />}
+      {!isLoadingGetArchivedNotes &&
+        isSuccessGetArchivedNotes &&
         archivedNotes.map((note, index: number) => {
           return <Note key={index + 1} {...note} isArchived />;
         })}

@@ -57,7 +57,7 @@ const ChangeNoteForm = ({ id }: { id: number }) => {
 
   // const { onChange, ...registerIsArchive } = register("isArchive");
 
-  const { data: note, isLoading: isLoadingGetNote, isSuccess: isSuccessGetNote } = useGetNote(id);
+  const { data: note, isFetching: isLoadingGetNote, isSuccess: isSuccessGetNote } = useGetNote(id);
 
   const { mutateAsync: updateNote, isPending: isLoadingUpdateNote } = useUpdateNote({
     onSuccess: (data) => {

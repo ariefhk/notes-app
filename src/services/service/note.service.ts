@@ -67,7 +67,9 @@ export const getNotes = async (request: SearchNotesRequest) => {
           email: email,
         },
       },
-
+      orderBy: {
+        createdAt: "desc",
+      },
       select: {
         id: true,
         title: true,
@@ -97,6 +99,9 @@ export const getNotes = async (request: SearchNotesRequest) => {
             },
           },
         ],
+      },
+      orderBy: {
+        createdAt: "desc",
       },
       select: {
         id: true,
